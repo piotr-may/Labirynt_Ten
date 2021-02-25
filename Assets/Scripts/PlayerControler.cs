@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerControler : MonoBehaviour
 {
     public float speed = 12f;
-    public float gravity = -10f;
+    public float gravity = -0.015f;
 
 
     //sluzy do obliczenia spadania
@@ -23,7 +23,7 @@ public class PlayerControler : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
-        characterController.Move(move * speed* Time.deltaTime);
+        characterController.Move(move * speed * Time.deltaTime);
 
         velocity.y += gravity;
         characterController.Move(velocity * Time.deltaTime);
