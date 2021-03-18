@@ -28,23 +28,32 @@ public class portalTeleport : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(playerIsOverlaping)
-        {
-            Vector3 portalToPlayer = player.position - transform.position;
+        Vector3 portalToPlayer = player.position - new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
 
-            float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
+        float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
+        Debug.Log(gameObject.name + " Dot: " + dotProduct);
+        Debug.DrawLine(transform.position, transform.position + transform.up * 10f, Color.blue);
+        Debug.DrawLine(transform.position, portalToPlayer + transform.position, Color.cyan);
+
+        if (playerIsOverlaping)
+        {
+            //Vector3 portalToPlayer = player.position - transform.position;
+
+            //float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
 
             if(dotProduct < 0f)
             {
                 
                 float rotationDiff = -Quaternion.Angle(transform.rotation, reciever.rotation);
-                rotationDiff += 180;
+                rotationDiff += 270;
                 player.Rotate(Vector3.up, rotationDiff);
 
                 Vector3 positionOffset = Quaternion.Euler(0f, rotationDiff, 0f) * portalToPlayer;
                 player.position = reciever.position + positionOffset;
-
+                
                 playerIsOverlaping = false;
+
+                //Debug.Break();
             }
         }
     }
