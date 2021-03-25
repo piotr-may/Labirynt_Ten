@@ -2,30 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class portalCamera : MonoBehaviour
+public class PortalCamera : MonoBehaviour
 {
     public Transform playerCamera;
     public Transform portal;
     public Transform otherPortal;
-
-    float myAngle;
-
-    void Start()
-    {
-        
-    }
-
+    public Camera renderTextureCamera;
     // Update is called once per frame
     void Update()
     {
-        Vector3 playerOffsetFormPortal = playerCamera.position - otherPortal.position;
-        transform.position = portal.position + playerOffsetFormPortal;
+        Vector3 playerOffsetFromPortal = playerCamera.position - otherPortal.position;
+        transform.position = portal.position + playerOffsetFromPortal;       
+        float angularDifferenceBetweenPortals = Quaternion.Angle(portal.rotation, portal.rotation);
 
-        float angulatDifferenceBetweenPortals = Quaternion.Angle(portal.rotation, otherPortal.rotation);
-
-        Quaternion portalRotationDifferande = Quaternion.AngleAxis(angulatDifferenceBetweenPortals, Vector3.up);
-        Vector3 newCameraDirection = portalRotationDifferande * playerCamera.forward;
+        Quaternion portalRotationDifference = Quaternion.AngleAxis(angularDifferenceBetweenPortals, Vector3.up);
+        Vector3 newCameraDirection = portalRotationDifference * playerCamera.forward;
         transform.rotation = Quaternion.LookRotation(newCameraDirection, Vector3.up);
-
     }
 }
