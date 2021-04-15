@@ -12,7 +12,21 @@ public class GameManager : MonoBehaviour
     public int timeToFinish = 120;
     int timeToEnd;
     bool paused = false;
+    bool win = false;
+    bool endGame;
+    public int points = 0;
+    public int[] keys = new int[3];
 
+
+    public void AddPoints(int points)
+    {
+        this.points += points;
+    }
+
+    public void AddTime(int time)
+    {
+        timeToEnd += time;
+    }
 
     void Start()
     {
@@ -91,5 +105,9 @@ public class GameManager : MonoBehaviour
 
     }
     
-    
+    public void FreezeTime(int duration)
+    {
+        CancelInvoke("Stopper");
+        InvokeRepeating("Stopper", duration, 1);
+    }
 }

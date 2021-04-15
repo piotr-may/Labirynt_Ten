@@ -65,7 +65,7 @@ public class PlayerControler : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        Debug.Log("Somethin Collided!!");
+        //Debug.Log("Somethin Collided!!");
         Debug.Log(hit.gameObject.name);
 
         if(hit.gameObject.tag == "PickUp")
